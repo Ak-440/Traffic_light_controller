@@ -1,0 +1,22 @@
+module traffic_timer #(
+    parameter TIMER_COUNT = 4
+)(
+    input wire clk,
+    input wire reset,
+    output wire timer_expired
+);
+
+reg [31:0] counter;
+
+assign timer_expired = (counter == TIMER_COUNT - 1);
+
+always @(posedge clk or posedge reset) begin
+    if (reset)
+        counter <= 0;
+    else if (timer_expired)
+        counter <= 0;
+    else
+        counter <= counter + 1;
+end
+
+endmodule
